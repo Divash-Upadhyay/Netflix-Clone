@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const app = express();
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
+const movieRoute = require("./routes/movies");
 app.use(express.json());
 
 const dotenv = require("dotenv");
@@ -18,6 +19,7 @@ mongoose
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
+app.use("/api/movies", movieRoute);
 
 app.listen(8080, () => {
   console.log("Backend is running");
