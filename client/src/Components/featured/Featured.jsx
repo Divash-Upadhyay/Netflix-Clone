@@ -1,12 +1,35 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import "./featured.scss";
-
+import axios from "axios";
 export const Featured = ({ type }) => {
+  const [content, setContent] = useState({});
+  useEffect(() => {
+    const getRandom = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8080/api/movies/random?type=${type}`,
+          {
+            headers: {
+              token:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZGU1NDc4ZjQ3MTI0ZjFmOWJiZmJmZiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1ODczODEzOCwiZXhwIjoxNjU5MTcwMTM4fQ.vyQCTTQgv82UBKtGc8-WuoqM15dReGtq8AOV_JKhKps",
+            },
+          }
+        );
+        setContent(res.data[0]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getRandom();
+  }, [type]);
+  console.log("content", content);
   return (
     <div className="featured">
       {type && (
         <div className="category">
-          <span>{type === "movie" ? "Movies" : "Series"}</span>
+          <span>{type === "movies" ? "Movies" : "Series"}</span>
           <select name="genre" id="genre">
             <option value="genre"></option>
             <option value="adventure">Adventure</option>
@@ -25,21 +48,10 @@ export const Featured = ({ type }) => {
           </select>
         </div>
       )}
-      <img
-        src="https://images.unsplash.com/photo-1587402092301-725e37c70fd8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHVwcHklMjBkb2d8ZW58MHx8MHx8&w=1000&q=80"
-        alt=""
-      />
+      <img src="" alt="hello" />
       <div className="info">
-        <img
-          src="https://occ-0-1432-1433.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUZdeG1DrMstq-YKHZ-dA-cx2uQN_YbCYx7RABDk0y7F8ZK6nzgCz4bp5qJVgMizPbVpIvXrd4xMBQAuNe0xmuW2WjoeGMDn1cFO.webp?r=df1"
-          alt=""
-        />
-        <span className="desc">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
-          illum dicta, distinctio libero iusto quibusdam officiis aperiam quam
-          saepe dolores iure expedita consectetur consequatur, quas ad
-          voluptatibus dolore, sed velit!
-        </span>
+        <img src="" alt="title" />
+        <span className="desc">{content.desc}</span>
         <div className="buttons">
           <button className="play">
             <i class="fa-solid fa-play">

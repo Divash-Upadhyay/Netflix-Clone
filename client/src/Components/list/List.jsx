@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import ListItem from "../lisitem/ListItem";
 import "./List.scss";
 
-export const List = () => {
+export const List = ({ list }) => {
   const [slide, setSlide] = useState(0);
   const [moved, setIsMoved] = useState(false);
   const listRef = useRef();
@@ -17,12 +17,13 @@ export const List = () => {
       setSlide(slide + 1);
       listRef.current.style.transform = `translateX(${-230 + distance}px)`;
     }
-    console.log(distance);
+    // console.log(distance);
     // console.log("hello");
   };
+  // console.log(list);
   return (
     <div className="list">
-      <span className="listTitle">Continue to watch</span>
+      <span className="listTitle">{list.title}</span>
       <div className="wrapper">
         <div className="inDiv lft">
           <i
@@ -32,16 +33,9 @@ export const List = () => {
           ></i>
         </div>
         <div className="container" ref={listRef}>
-          <ListItem index={0} />
-          <ListItem index={1} />
-          <ListItem index={2} />
-          <ListItem index={3} />
-          <ListItem index={4} />
-          <ListItem index={5} />
-          <ListItem index={6} />
-          <ListItem index={7} />
-          <ListItem index={8} />
-          <ListItem index={9} />
+          {list.content.map((item, i) => (
+            <ListItem index={i} item={item} />
+          ))}
         </div>
         <div className="inDiv rght">
           <i

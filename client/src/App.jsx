@@ -5,6 +5,7 @@ import { Home } from "./pages/Home/Home";
 import Watch from "./pages/watch/Watch";
 import Register from "./pages/register/Register";
 import Login from "./pages/login/Login";
+import { AllRoutes } from "./routes/AllRoutes";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -14,7 +15,8 @@ function App() {
       {/* <Home /> */}
       {/* <Watch /> */}
       {/* <Register /> */}
-      <Login />
+      {/* <Login /> */}
+      <AllRoutes />
     </div>
   );
 }

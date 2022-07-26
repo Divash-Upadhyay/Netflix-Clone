@@ -1,13 +1,20 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./Watch.scss";
 
 const Watch = () => {
+  const location = useLocation();
+  console.log(location);
   return (
     <div className="watch">
-      <div className="back">
-        <i class="fa-solid fa-arrow-left-long"></i>
-        Home
-      </div>
+      <Link to="/">
+        {" "}
+        <div className="back">
+          <i class="fa-solid fa-arrow-left-long"></i>
+          Home
+        </div>
+      </Link>
+
       <video
         className="video"
         autoPlay
