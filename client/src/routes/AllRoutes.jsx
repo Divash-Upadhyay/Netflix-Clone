@@ -7,7 +7,7 @@ import Watch from "../pages/watch/Watch";
 // import {} from "react-router-dom";
 
 export const AllRoutes = () => {
-  const user = true;
+  const user = false;
   return (
     <Routes>
       <Route
