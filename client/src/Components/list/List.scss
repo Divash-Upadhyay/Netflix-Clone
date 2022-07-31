@@ -15,7 +15,7 @@
     .inDiv {
       width: 40px;
       height: 120px;
-      background-color: rgb(125, 116, 116);
+      background-color: rgba(46, 44, 44, 0.468);
       // background-color: red;
       color: white;
       display: inline-block;
@@ -23,9 +23,11 @@
       top: 0;
       bottom: 0;
       margin: auto 10px;
+      border-radius: 5px;
       // border: 1px solid red;
       position: absolute;
-      opacity: 0.3;
+      // opacity: 0.2;
+      // backdrop-filter: blur(50px) !important;
 
       &.lft {
         left: 0;

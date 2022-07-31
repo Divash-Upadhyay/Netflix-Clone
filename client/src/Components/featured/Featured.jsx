@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import "./featured.scss";
 import axios from "axios";
-export const Featured = ({ type }) => {
+export const Featured = ({ type, setGenre }) => {
   const [content, setContent] = useState({});
   useEffect(() => {
     const getRandom = async () => {
@@ -13,7 +13,7 @@ export const Featured = ({ type }) => {
           {
             headers: {
               token:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZGU1NDc4ZjQ3MTI0ZjFmOWJiZmJmZiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1ODczODEzOCwiZXhwIjoxNjU5MTcwMTM4fQ.vyQCTTQgv82UBKtGc8-WuoqM15dReGtq8AOV_JKhKps",
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTYyOWNiYjlkMzY5YTFiNjgxNGJjYSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1OTI1MTIwMCwiZXhwIjoxNjU5NjgzMjAwfQ.czUKyYWbU7kIflQQ-hg2zBddrPFfRpQLPvLHOrkcSd8",
             },
           }
         );
@@ -30,12 +30,16 @@ export const Featured = ({ type }) => {
       {type && (
         <div className="category">
           <span>{type === "movies" ? "Movies" : "Series"}</span>
-          <select name="genre" id="genre">
+          <select
+            name="genre"
+            id="genre"
+            onChange={(e) => setGenre(e.target.value)}
+          >
             <option value="genre"></option>
             <option value="adventure">Adventure</option>
             <option value="comdey">Comedy</option>
             <option value="crime">Crime</option>
-            <option value="fantasy">Fantasy</option>
+            <option value="action">Action</option>
             <option value="historical">Historical</option>
             <option value="horror">Horror</option>
             <option value="romance">Romance</option>
@@ -48,9 +52,9 @@ export const Featured = ({ type }) => {
           </select>
         </div>
       )}
-      <img src="" alt="hello" />
+      <img src={content.img} alt="hello" />
       <div className="info">
-        <img src="" alt="title" />
+        <img src={content.imgTitle} alt="title" />
         <span className="desc">{content.desc}</span>
         <div className="buttons">
           <button className="play">

@@ -15,7 +15,7 @@ function ListItem({ index, item }) {
           {
             headers: {
               token:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZGU1NDc4ZjQ3MTI0ZjFmOWJiZmJmZiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1ODczODEzOCwiZXhwIjoxNjU5MTcwMTM4fQ.vyQCTTQgv82UBKtGc8-WuoqM15dReGtq8AOV_JKhKps",
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTYyOWNiYjlkMzY5YTFiNjgxNGJjYSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1OTI1MTIwMCwiZXhwIjoxNjU5NjgzMjAwfQ.czUKyYWbU7kIflQQ-hg2zBddrPFfRpQLPvLHOrkcSd8",
             },
           }
         );
@@ -37,10 +37,15 @@ function ListItem({ index, item }) {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        <img src="" alt="movie" />
+        <img src={movie.imgSm} alt="movie" />
         {hover && (
           <>
-            <video src={movie.trailer} autoPlay={true} loop></video>
+            <video
+              src={movie.trailer}
+              controlsList="nodownload"
+              autoPlay={true}
+              loop
+            ></video>
 
             <div className="itemInfo">
               <div className="icons">
@@ -52,7 +57,7 @@ function ListItem({ index, item }) {
               <div className="itemInfo">
                 <span>{movie.duration}</span>
                 <span className="limit">+{movie.limit}</span>
-                <span>{movie.year}</span>
+                <span>{movie.genre}</span>
               </div>
               <div className="desc">{movie.desc}</div>
               <div className="genre">{movie.genre}</div>
