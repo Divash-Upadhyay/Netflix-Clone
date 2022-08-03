@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { fetchToken } from "../../redux/auth/action";
+import { loadData } from "../../redux/auth/localStorage";
 import { store } from "../../redux/Store";
 import "./login.scss";
 
@@ -11,15 +13,24 @@ export default function Login() {
     password: "",
   });
   const navigate = useNavigate();
-  const tokenn = useSelector((store) => store);
-  console.log(tokenn);
-  console.log(userData);
   const dispatch = useDispatch();
+  const tokn = useSelector((store) => store.token.token);
+  const token2 = loadData("token");
+
   const gotoHome = (e) => {
     e.preventDefault();
     dispatch(fetchToken(userData));
-    navigate("/");
   };
+  useEffect(() => {
+    if (tokn !== null || token2 !== null) {
+      navigate("/");
+    }
+  }, [tokn, token2]);
+
+  const gotoSignUp = () => {
+    navigate("/register");
+  };
+
   return (
     <div className="login">
       <div className="top">
@@ -32,7 +43,7 @@ export default function Login() {
         </div>
       </div>
       <div className="container">
-        <form onSubmit={gotoHome}>
+        <form>
           <h1>Sign In</h1>
           <input
             type="email"
@@ -49,11 +60,11 @@ export default function Login() {
               setUserData({ ...userData, password: e.target.value })
             }
           />
-          <button className="loginButton" type="submit">
+          <button className="loginButton" onClick={gotoHome}>
             Sign In
           </button>
           <span>
-            New to Netflix? <b>Sign up now.</b>
+            New to Netflix? <b onClick={gotoSignUp}>Sign up now.</b>
           </span>
           <small>
             This page is protected by Google reCAPTCHA to ensure you're not a

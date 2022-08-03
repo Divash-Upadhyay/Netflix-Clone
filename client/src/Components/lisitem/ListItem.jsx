@@ -6,16 +6,15 @@ import { Link } from "react-router-dom";
 function ListItem({ index, item }) {
   const [hover, setHover] = useState(false);
   const [movie, setMovie] = useState({});
-  // console.log(movie);
+
   useEffect(() => {
     const getMovie = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/movies/find/" + item,
+          "https://netflixbackend11.herokuapp.com/api/movies/find/" + item,
           {
             headers: {
-              token:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTYyOWNiYjlkMzY5YTFiNjgxNGJjYSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1OTI1MTIwMCwiZXhwIjoxNjU5NjgzMjAwfQ.czUKyYWbU7kIflQQ-hg2zBddrPFfRpQLPvLHOrkcSd8",
+              token: "Bearer " + JSON.parse(localStorage.getItem("token")),
             },
           }
         );
@@ -30,7 +29,7 @@ function ListItem({ index, item }) {
   }, [item]);
 
   return (
-    <Link to={{ pathname: "/watch", movie: movie }}>
+    <Link to={"/watch"} state={{ movie: movie }}>
       <div
         className="listitem"
         style={{ left: hover && index * 225 - 50 + index * 2.5 }}

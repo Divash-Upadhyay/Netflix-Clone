@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 import Axios from "axios";
-import { useNavigate } from "react-router";
+import { saveData } from "./localStorage";
 
 const fetchSignupRequest = (payload) => {
   return {
@@ -43,15 +43,25 @@ const fetchAuthFailure = (payload) => {
   };
 };
 
+const fetchLogoutSuccess = (payload) => {
+  return {
+    type: types.FETCH_LOGOUT_SUCCESS,
+    payload,
+  };
+};
+
 const fetchAuth = (email, password, username) => {
   return (dispatch) => {
     dispatch(fetchSignupRequest());
-    Axios.post("http://localhost:8080/api/auth/register", {
+    Axios.post("https://netflixbackend11.herokuapp.com/api/auth/register", {
       username: username,
       email: email,
       password: password,
     })
-      .then((r) => dispatch(fetchSignupSuccess(true)))
+      .then(
+        (r) => saveData("isSignup", true),
+        dispatch(fetchSignupSuccess(true))
+      )
       .catch((e) => dispatch(fetchSignupFailure(e.data)));
   };
 };
@@ -60,12 +70,19 @@ const fetchToken = (userData) => {
   const { email, password } = userData;
   return (dispatch) => {
     dispatch(fetchAuthRequest());
-    Axios.post("http://localhost:8080/api/auth/login", {
+    Axios.post("https://netflixbackend11.herokuapp.com/api/auth/login", {
       email: email,
       password: password,
     })
-      .then((r) => dispatch(fetchAuthSuccess(r.data.accessToken)))
+      .then((r) => {
+        saveData("token", r.data.accessToken),
+          dispatch(fetchAuthSuccess(r.data.accessToken));
+      })
       .catch((e) => dispatch(fetchAuthFailure(e.data)));
   };
 };
-export { fetchAuth, fetchToken };
+
+const logoutSucess = (dispatch) => {
+  dispatch(fetchLogoutSuccess());
+};
+export { fetchAuth, fetchToken, logoutSucess };

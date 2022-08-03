@@ -3,17 +3,18 @@ import { useEffect } from "react";
 import { useState } from "react";
 import "./featured.scss";
 import axios from "axios";
+import { loadData } from "../../redux/auth/localStorage";
 export const Featured = ({ type, setGenre }) => {
   const [content, setContent] = useState({});
+  const tokn = loadData("tokn");
   useEffect(() => {
     const getRandom = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/movies/random?type=${type}`,
+          `https://netflixbackend11.herokuapp.com/api/movies/random?type=${type}`,
           {
             headers: {
-              token:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTYyOWNiYjlkMzY5YTFiNjgxNGJjYSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1OTI1MTIwMCwiZXhwIjoxNjU5NjgzMjAwfQ.czUKyYWbU7kIflQQ-hg2zBddrPFfRpQLPvLHOrkcSd8",
+              token: "Bearer " + JSON.parse(localStorage.getItem("token")),
             },
           }
         );
@@ -24,18 +25,18 @@ export const Featured = ({ type, setGenre }) => {
     };
     getRandom();
   }, [type]);
-  console.log("content", content);
+
   return (
     <div className="featured">
       {type && (
         <div className="category">
-          <span>{type === "movies" ? "Movies" : "Series"}</span>
+          <span>{type === "movie" ? "Movies" : "Series"}</span>
           <select
             name="genre"
             id="genre"
             onChange={(e) => setGenre(e.target.value)}
           >
-            <option value="genre"></option>
+            <option value="genre">Category</option>
             <option value="adventure">Adventure</option>
             <option value="comdey">Comedy</option>
             <option value="crime">Crime</option>
@@ -58,12 +59,12 @@ export const Featured = ({ type, setGenre }) => {
         <span className="desc">{content.desc}</span>
         <div className="buttons">
           <button className="play">
-            <i class="fa-solid fa-play">
+            <i className="fa-solid fa-play">
               <span>Play</span>
             </i>
           </button>
           <button className="more">
-            <i class="fa-solid fa-circle-info"></i>
+            <i className="fa-solid fa-circle-info"></i>
             <span>Info</span>
           </button>
         </div>

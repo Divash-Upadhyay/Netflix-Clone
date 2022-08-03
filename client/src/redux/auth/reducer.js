@@ -47,6 +47,12 @@ const reducer = (state = initialState, action) => {
         loading: false,
         error: payload,
       };
+    case types.FETCH_LOGOUT_SUCCESS:
+      return {
+        ...state,
+        token: null,
+        loading: false,
+      };
     default:
       return state;
   }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { fetchAuth } from "../../redux/auth/action";
+import { loadData } from "../../redux/auth/localStorage";
 import "./Register.scss";
 
 export default function Register() {
@@ -13,8 +14,10 @@ export default function Register() {
   console.log(email, password, username);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const signup = useSelector((store) => store.token.isSignUp);
-  console.log(signup);
+
+  const signup =
+    loadData("isSignup") || useSelector((store) => store.token.isSignUp);
+  console.log("s", signup);
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -33,9 +36,12 @@ export default function Register() {
     setPassword(passwordRef.current.value);
     dispatch(fetchAuth(email, password, username));
   };
-  if (signup) {
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (signup) {
+      navigate("/login");
+    }
+  }, [signup]);
+
   return (
     <div className="register">
       <div className="top">

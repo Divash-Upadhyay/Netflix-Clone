@@ -18,6 +18,7 @@ router.post("/register", async (req, res) => {
     res.status(201).json(user);
   } catch (err) {
     res.status(500).json(err);
+    return;
   }
 });
 
@@ -27,13 +28,18 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
 
-    !user && res.status(401).json("Wrong Passowrd or Username");
+    if (!user) {
+      res.status(401).json("Wrong Passowrd or Username");
+      return;
+    }
 
     const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
     const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
 
-    originalPassword !== req.body.password &&
-      res.status(401).json("Wrong Passowrd or Username");
+    if (originalPassword !== req.body.password) {
+      res.status(401).json("Wrong Password or Username");
+      return;
+    }
 
     const accessToken = jwt.sign(
       { id: user.id, isAdmin: user.isAdmin },
@@ -46,6 +52,7 @@ router.post("/login", async (req, res) => {
     res.status(200).json({ ...info, accessToken });
   } catch (err) {
     res.status(500).json(err);
+    return;
   }
 });
 

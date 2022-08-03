@@ -5,6 +5,7 @@ import "./List.scss";
 export const List = ({ list }) => {
   const [slide, setSlide] = useState(0);
   const [moved, setIsMoved] = useState(false);
+  const [clickLimit, setClickLimit] = useState(window.innerWidth / 230);
   const listRef = useRef();
   const handleClick = (direction) => {
     setIsMoved(true);
@@ -13,14 +14,12 @@ export const List = ({ list }) => {
       setSlide(slide - 1);
       listRef.current.style.transform = `translateX(${230 + distance}px)`;
     }
-    if (direction === "right" && slide < 5) {
+    if (direction === "right" && slide < 10 - clickLimit) {
       setSlide(slide + 1);
       listRef.current.style.transform = `translateX(${-230 + distance}px)`;
     }
-    // console.log(distance);
-    // console.log("hello");
   };
-  // console.log(list);
+
   return (
     <div className="list">
       <span className="listTitle">{list.title}</span>
@@ -34,7 +33,7 @@ export const List = ({ list }) => {
         </div>
         <div className="container" ref={listRef}>
           {list.content.map((item, i) => (
-            <ListItem index={i} item={item} />
+            <ListItem key={item._id} item={item} />
           ))}
         </div>
         <div className="inDiv rght">

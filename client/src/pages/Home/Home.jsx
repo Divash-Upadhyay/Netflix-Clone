@@ -6,26 +6,29 @@ import { List } from "../../Components/list/list";
 import { Navbar } from "../../Components/Navbar/Navbar";
 import "./Home.scss";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { store } from "../../redux/Store";
 
 export const Home = ({ type }) => {
   const [list, setList] = useState([]);
   const [genre, setGenre] = useState(null);
+  const storeey = useSelector((store) => store);
+  // console.log("hometoken", storeey);
 
   useEffect(() => {
     const getRandomList = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8080/api/lists${type ? "?type=" + type : ""}${
-            genre ? "&genre=" + genre : ""
-          }`,
+          `https://netflixbackend11.herokuapp.com/api/lists${
+            type ? "?type=" + type : ""
+          }${genre ? "&genre=" + genre : ""}`,
           {
             headers: {
-              token:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZTYyOWNiYjlkMzY5YTFiNjgxNGJjYSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1OTI1MTIwMCwiZXhwIjoxNjU5NjgzMjAwfQ.czUKyYWbU7kIflQQ-hg2zBddrPFfRpQLPvLHOrkcSd8",
+              token: "Bearer " + JSON.parse(localStorage.getItem("token")),
             },
           }
         );
-        console.log(res.data);
+        // console.log(res.data);
         setList(res.data);
       } catch (err) {
         console.log(err);
@@ -39,8 +42,8 @@ export const Home = ({ type }) => {
     <div className="home">
       <Navbar />
       <Featured type={type} setGenre={setGenre} />
-      {list.map((list) => (
-        <List list={list} />
+      {list.map((list, i) => (
+        <List key={i} list={list} />
       ))}
 
       {/* heelo */}
