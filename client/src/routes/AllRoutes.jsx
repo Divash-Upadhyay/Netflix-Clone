@@ -6,6 +6,7 @@ import Register from "../pages/register/Register";
 import Watch from "../pages/watch/Watch";
 
 import { PrivateRoute } from "./PrivateRoute";
+import { SignupRoute } from "./SignupRoute";
 
 export const AllRoutes = () => {
   return (
@@ -13,9 +14,11 @@ export const AllRoutes = () => {
       <Route
         path="/"
         element={
-          <PrivateRoute>
-            <Home />
-          </PrivateRoute>
+          <SignupRoute>
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          </SignupRoute>
         }
       />
       <Route path="/register" element={<Register />} />
