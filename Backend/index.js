@@ -5,6 +5,7 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const movieRoute = require("./routes/movies");
 const listRoute = require("./routes/list");
+const paymentRouter = require("./routes/razorpayy");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -31,14 +32,11 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/movies", movieRoute);
 app.use("/api/lists", listRoute);
+app.use("/payment", paymentRouter);
 app.use((req, res, next) => {
   res.status(404).json({
     message: "Bad Request",
   });
 });
-
-// app.listen(port, () => {
-//   console.log("Backend is running");
-// });
 
 module.exports = app;

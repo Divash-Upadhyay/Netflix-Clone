@@ -1,0 +1,58 @@
+body {
+  background-color: #222222;
+}
+.mainDiv {
+  background-color: #000000;
+  text-align: center;
+  color: aliceblue;
+  min-height: 850px;
+
+  h1 {
+    font-size: 50px;
+  }
+
+  .inDiv {
+    width: 815px;
+    background-color: #303030;
+    min-height: 75px;
+    margin: auto;
+    text-align: left;
+    border: 1px solid white;
+    margin-bottom: 10px;
+    font-size: 26px;
+
+    .flexBox {
+      width: 760px;
+      margin: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .innerDiv {
+      width: 760px;
+      margin: auto;
+      animation: Abu;
+      animation-duration: 0.5s;
+    }
+  }
+  .spantag {
+    font-size: 20px;
+    margin-top: 60px;
+  }
+  .spantag span {
+    margin-right: 10px;
+  }
+}
+
+@keyframes Abu {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

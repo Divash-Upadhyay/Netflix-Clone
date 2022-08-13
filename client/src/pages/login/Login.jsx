@@ -4,21 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { fetchToken } from "../../redux/auth/action";
 import { loadData } from "../../redux/auth/localStorage";
-import { store } from "../../redux/Store";
 import "./login.scss";
+import Axios from "axios";
 
 export default function Login() {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const tokn = useSelector((store) => store.token.token);
   const token2 = loadData("token");
-
   const gotoHome = (e) => {
     e.preventDefault();
+    console.log("Hello");
     dispatch(fetchToken(userData));
   };
   useEffect(() => {

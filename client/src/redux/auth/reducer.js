@@ -2,8 +2,10 @@ import * as types from "./actionTypes";
 const initialState = {
   isSignUp: false,
   token: null,
+  email: "",
   loading: false,
   error: "",
+  payment: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -53,6 +55,7 @@ const reducer = (state = initialState, action) => {
         token: null,
         loading: false,
       };
+
     default:
       return state;
   }

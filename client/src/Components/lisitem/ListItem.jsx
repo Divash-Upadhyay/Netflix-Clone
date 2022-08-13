@@ -59,7 +59,7 @@ function ListItem({ index, item }) {
                 <span>{movie.genre}</span>
               </div>
               <div className="desc">{movie.desc}</div>
-              <div className="genre">{movie.genre}</div>
+              {/* <div className="genre">{movie.genre}</div> */}
             </div>
           </>
         )}

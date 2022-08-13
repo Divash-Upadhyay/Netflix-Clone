@@ -1,0 +1,19 @@
+.fristDiv {
+  margin-top: 18px;
+  background-color: #f3f3f3;
+  height: 200px;
+  color: #737373;
+  .sncdDiv {
+    height: 162px;
+    width: 1267px;
+    margin: auto;
+    .flexxDiv {
+      display: grid;
+      grid-template-columns: repeat(4, 200px);
+      p {
+        text-align: left;
+        font-size: 13px;
+      }
+    }
+  }
+}

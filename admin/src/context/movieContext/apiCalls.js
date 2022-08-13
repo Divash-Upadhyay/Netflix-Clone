@@ -14,11 +14,15 @@ import {
 export const getMovies = async (dispatch) => {
   dispatch(getMoviesStart());
   try {
-    const res = await axios.get("http://localhost:8080/api/movies", {
-      headers: {
-        token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
-      },
-    });
+    const res = await axios.get(
+      "https://netflixbackend11.herokuapp.com/api/movies",
+      {
+        headers: {
+          token:
+            "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+        },
+      }
+    );
     dispatch(getMoviesSuccess(res.data));
   } catch (err) {
     dispatch(getMoviesFailure());
@@ -30,11 +34,16 @@ export const createMovie = async (movie, dispatch) => {
   dispatch(createMovieStart());
   console.log(movie);
   try {
-    const res = await axios.post("http://localhost:8080/api/movies", movie, {
-      headers: {
-        token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
-      },
-    });
+    const res = await axios.post(
+      "https://netflixbackend11.herokuapp.com/api/movies",
+      movie,
+      {
+        headers: {
+          token:
+            "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+        },
+      }
+    );
     dispatch(createMovieSuccess(res.data));
   } catch (err) {
     dispatch(createMovieFailure());
@@ -45,11 +54,15 @@ export const createMovie = async (movie, dispatch) => {
 export const deleteMovie = async (id, dispatch) => {
   dispatch(deleteMovieStart());
   try {
-    await axios.delete("http://localhost:8080/api/movies/" + id, {
-      headers: {
-        token: "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
-      },
-    });
+    await axios.delete(
+      "https://netflixbackend11.herokuapp.com/api/movies/" + id,
+      {
+        headers: {
+          token:
+            "Bearer " + JSON.parse(localStorage.getItem("user")).accessToken,
+        },
+      }
+    );
     dispatch(deleteMovieSuccess(id));
   } catch (err) {
     dispatch(deleteMovieFailure());

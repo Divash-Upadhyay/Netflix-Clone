@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./featured.scss";
 import axios from "axios";
 import { loadData } from "../../redux/auth/localStorage";
+import { Link } from "react-router-dom";
 export const Featured = ({ type, setGenre }) => {
   const [content, setContent] = useState({});
   const tokn = loadData("tokn");
@@ -25,6 +26,8 @@ export const Featured = ({ type, setGenre }) => {
     };
     getRandom();
   }, [type]);
+
+  const takePlay = () => {};
 
   return (
     <div className="featured">
@@ -58,11 +61,17 @@ export const Featured = ({ type, setGenre }) => {
         <img src={content.imgTitle} alt="title" />
         <span className="desc">{content.desc}</span>
         <div className="buttons">
-          <button className="play">
-            <i className="fa-solid fa-play">
-              <span>Play</span>
-            </i>
-          </button>
+          <Link
+            style={{ textDecoration: "none" }}
+            to={"/watch"}
+            state={{ movie: content }}
+          >
+            <button onClick={takePlay} className="play">
+              <i className="fa-solid fa-play">
+                <span>Play</span>
+              </i>
+            </button>
+          </Link>
           <button className="more">
             <i className="fa-solid fa-circle-info"></i>
             <span>Info</span>

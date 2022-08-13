@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 import Axios from "axios";
-import { saveData } from "./localStorage";
+import { loadData, saveData } from "./localStorage";
 
 const fetchSignupRequest = (payload) => {
   return {
@@ -50,7 +50,14 @@ const fetchLogoutSuccess = (payload) => {
   };
 };
 
-const fetchAuth = (email, password, username) => {
+const payment = (payload) => {
+  return {
+    type: types.PAYMENT,
+    payload,
+  };
+};
+
+const fetchAuth = ({ email, password, username }) => {
   return (dispatch) => {
     dispatch(fetchSignupRequest());
     Axios.post("https://netflixbackend11.herokuapp.com/api/auth/register", {
@@ -85,4 +92,5 @@ const fetchToken = (userData) => {
 const logoutSucess = (dispatch) => {
   dispatch(fetchLogoutSuccess());
 };
+
 export { fetchAuth, fetchToken, logoutSucess };

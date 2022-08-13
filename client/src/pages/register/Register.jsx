@@ -1,44 +1,48 @@
-import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { Faq } from "../../Components/faqs/Faq";
+import { Footer } from "../../Components/footer/Footer";
+import { Image } from "../../Components/front/Image";
 import { fetchAuth } from "../../redux/auth/action";
 import { loadData } from "../../redux/auth/localStorage";
 import "./Register.scss";
 
 export default function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  console.log(email, password, username);
+  const [userData, setUserData] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
+  const [pages, setPages] = useState({
+    page1: false,
+    page2: false,
+    page3: false,
+  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const signup =
     loadData("isSignup") || useSelector((store) => store.token.isSignUp);
-  console.log("s", signup);
-
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const nameRef = useRef();
 
   const handleStart = (e) => {
     e.preventDefault();
-    setEmail(emailRef.current.value);
+
+    setPages({ ...pages, page1: true });
   };
   const handleName = (e) => {
     e.preventDefault();
-    setUsername(nameRef.current.value);
+    setPages({ ...pages, page2: true });
   };
   const handleFinish = (e) => {
     e.preventDefault();
-    setPassword(passwordRef.current.value);
-    dispatch(fetchAuth(email, password, username));
+
+    dispatch(fetchAuth(userData));
   };
   useEffect(() => {
     if (signup) {
-      navigate("/login");
+      navigate("/plan");
     }
   }, [signup]);
 
@@ -60,29 +64,51 @@ export default function Register() {
         <p>
           Ready to watch? Enter your email to create or restart your membership.
         </p>
-        {!email ? (
-          <div className="input">
-            <input type="email" placeholder="email address" ref={emailRef} />
+        {!pages.page1 ? (
+          <form className="input">
+            <input
+              type="email"
+              placeholder="email address"
+              onChange={(e) =>
+                setUserData({ ...userData, email: e.target.value })
+              }
+            />
             <button className="registerButton" onClick={handleStart}>
               Get Started
             </button>
-          </div>
-        ) : email && !username ? (
+          </form>
+        ) : pages.page1 && !pages.page2 ? (
           <form className="input">
-            <input type="text" placeholder="Enter UserName" ref={nameRef} />
+            <input
+              type="text"
+              name="username"
+              placeholder="Enter UserName"
+              onChange={(e) =>
+                setUserData({ ...userData, username: e.target.value })
+              }
+            />
             <button className="registerButton" onClick={handleName}>
               Start
             </button>
           </form>
         ) : (
           <form className="input">
-            <input type="password" placeholder="password" ref={passwordRef} />
+            <input
+              type="password"
+              placeholder="password"
+              onChange={(e) =>
+                setUserData({ ...userData, password: e.target.value })
+              }
+            />
             <button className="registerButton" onClick={handleFinish}>
               Start
             </button>
           </form>
         )}
       </div>
+      <Image />
+      <Faq />
+      <Footer />
     </div>
   );
 }

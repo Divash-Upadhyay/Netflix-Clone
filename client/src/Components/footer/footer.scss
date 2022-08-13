@@ -1,0 +1,24 @@
+.mnrrDiv {
+  background-color: #000000;
+  height: 400px;
+  margin-top: 10px;
+  .inDiv {
+    width: 800px;
+    margin: auto;
+
+    color: #737373;
+    .flxDiv {
+      display: grid;
+      grid-template-columns: repeat(4, 200px);
+      p {
+        text-align: left;
+      }
+    }
+    select {
+      width: 100px;
+      height: 40px;
+      background-color: #000000;
+      color: #999999;
+    }
+  }
+}

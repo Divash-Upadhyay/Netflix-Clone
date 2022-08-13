@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { Routes, Route } from "react-router";
 import { Home } from "../pages/Home/Home";
 import Login from "../pages/login/Login";
+import { Payment } from "../pages/payment/Payment";
+import { Plan } from "../pages/plan/Plan";
 import Register from "../pages/register/Register";
 import Watch from "../pages/watch/Watch";
 
@@ -21,6 +23,8 @@ export const AllRoutes = () => {
           </SignupRoute>
         }
       />
+      <Route path="/plan" element={<Plan />} />
+      <Route path="/payment" element={<Payment />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route
